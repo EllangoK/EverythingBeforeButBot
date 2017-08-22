@@ -19,7 +19,7 @@ def doStuff():
     for comment in subreddit.stream.comments():
         if comment.id not in posts_replied_to:
             if comment.author != "EverythingBeforeBut":
-                if re.search(" but " or ", but " and not "Everything before **but** doesn't count", comment.body, re.IGNORECASE):
+                if re.search(" but " or ", but ", comment.body, re.IGNORECASE):
                     fixed_comment = comment.body.split(" but" or ", but")[0]
                     comment.reply('Everything before but doesn\'t count. \n\n You meant this: \n\n >' + fixed_comment)
                     posts_replied_to.append(comment.id)
@@ -27,3 +27,18 @@ def doStuff():
                         for post_id in posts_replied_to:
                             f.write(post_id + "\n")
                         print ("Stuff Done")
+try:
+    doStuff()
+    print ("Stuff done")
+except praw.exceptions.APIException:
+    print ("Stuff not done")
+
+time.sleep(660) #11 mins
+
+try:
+    doStuff()
+    print ("Stuff done")
+except praw.exceptions.APIException:
+    print ("Stuff not done")
+
+print("kid")
