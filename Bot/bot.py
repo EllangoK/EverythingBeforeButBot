@@ -21,7 +21,11 @@ def doStuff():
             if comment.author != "EverythingBeforeBut":
                 if re.search(" but " or ", but ", comment.body, re.IGNORECASE):
                     fixed_comment = re.split("but", comment.body, flags=re.IGNORECASE)[0]
-                    comment.reply('Everything before **but** doesn\'t count. \n\n You mean \n\n >' + fixed_comment + "\n\n Instead of \n\n >" + comment.body)
+                    x = fixed_comment
+                    if x.endswith(', '):
+                        x = x[:-1]
+                        x = x[:-1]
+                    comment.reply('Everything before **but** doesn\'t count. \n\n You mean \n\n >' + x + "\n\n Instead of \n\n >" + comment.body)
                     posts_replied_to.append(comment.id)
                     print ("s")
                     with open("posts_replied_to.txt", "w") as f:
