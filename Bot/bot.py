@@ -21,7 +21,7 @@ def doStuff():
             if comment.author != "EverythingBeforeBut":
                 if re.search(" but " or ", but ", comment.body, re.IGNORECASE):
                     fixed_comment = re.split("but", comment.body, flags=re.IGNORECASE)[0]
-                    comment.reply('Everything before **but** doesn\'t count. \n\n You meant this: \n\n >' + fixed_comment)
+                    comment.reply('Everything before **but** doesn\'t count. \n\n You meant this: \n\n >' + fixed_comment + "\n\n Instead of \n\n >" + comment.body)
                     posts_replied_to.append(comment.id)
                     with open("posts_replied_to.txt", "w") as f:
                         for post_id in posts_replied_to:
@@ -34,12 +34,5 @@ for x in range(2):
     except praw.exceptions.APIException:
         print ("Stuff not done")
     time.sleep(610)
-#time.sleep(660) #11 mins
-
-#try:
-#    doStuff()
-#    print ("Stuff done")
-#except praw.exceptions.APIException:
-#    print ("Stuff not done")
 
 print("kid")
