@@ -26,12 +26,14 @@ def doStuff():
                     with open("posts_replied_to.txt", "w") as f:
                         for post_id in posts_replied_to:
                             f.write(post_id + "\n")
-try:
-    doStuff()
-    print ("Stuff done")
-except praw.exceptions.APIException:
-    print ("Stuff not done")
 
+for x in range(2):
+    try:
+        doStuff()
+        print ("Stuff done")
+    except praw.exceptions.APIException:
+        print ("Stuff not done")
+    time.sleep(610)
 #time.sleep(660) #11 mins
 
 #try:
