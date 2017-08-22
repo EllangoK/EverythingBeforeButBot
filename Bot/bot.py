@@ -6,7 +6,7 @@ import time
 import sys
 
 reddit = praw.Reddit('bot1')
-subreddit = reddit.subreddit("freefolk")
+subreddit = reddit.subreddit("ArkunEnterprises")
 if not os.path.isfile("posts_replied_to.txt"):
     posts_replied_to = []
 else:
@@ -18,19 +18,38 @@ else:
 def doStuff():
     for comment in subreddit.stream.comments():
         if comment.id not in posts_replied_to:
-            if comment.author != "EverythingBeforeBut":
-                if re.search(" but " or ", but ", comment.body, re.IGNORECASE):
-                    fixed_comment = re.split("but", comment.body, flags=re.IGNORECASE)[0]
-                    x = fixed_comment
-                    if x.endswith(', '):
-                        x = x[:-1]
-                        x = x[:-1]
-                    time.sleep(300)
-                    comment.reply('[Everything before the word **but** is horse shit.](https://www.youtube.com/watch?v=jIvYWUVB1Ig) \n\n You mean \n\n >' + x + "\n\n Instead of \n\n >" + comment.body)
-                    posts_replied_to.append(comment.id)
-                    print ("s")
-                    with open("posts_replied_to.txt", "w") as f:
-                        for post_id in posts_replied_to:
-                            f.write(post_id + "\n")
+            if comment.author != "EverythingBeforeBut" and "_youtubot_":
+                if re.search(" but ", comment.body, re.IGNORECASE):
+                    if re.search("\(", comment.body, re.IGNORECASE) and re.search("\)", comment.body, re.IGNORECASE):
+                        comment2 = re.search('\(([^)]+)', comment.body).group(1)
+                        if re.search(" but ", comment2, re.IGNORECASE) == False:
+                            break
+                        else:
+                            fixed_comment = re.split("but", comment.body, flags=re.IGNORECASE)[0]
+                            x = fixed_comment
+                            if x.endswith(', '):
+                                x = x[:-1]
+                                x = x[:-1]
+                            #time.sleep(1200)
+                            comment.reply('[Everything before the word **but** is horse shit.](https://www.youtube.com/watch?v=jIvYWUVB1Ig) \n\n **You mean** \n\n' + x + "\n\n **Instead of** \n\n" + comment.body)
+                            posts_replied_to.append(comment.id)
+                            print ("s")
+                            with open("posts_replied_to.txt", "w") as f:
+                                for post_id in posts_replied_to:
+                                   f.write(post_id + "\n")
+
+                    else:
+                        fixed_comment = re.split("but", comment.body, flags=re.IGNORECASE)[0]
+                        x = fixed_comment
+                        if x.endswith(', '):
+                            x = x[:-1]
+                            x = x[:-1]
+                        #time.sleep(1200)
+                        comment.reply('[Everything before the word **but** is horse shit.](https://www.youtube.com/watch?v=jIvYWUVB1Ig) \n\n **You mean** \n\n' + x + "\n\n **Instead of** \n\n" + comment.body)
+                        posts_replied_to.append(comment.id)
+                        print ("s")
+                        with open("posts_replied_to.txt", "w") as f:
+                            for post_id in posts_replied_to:
+                                f.write(post_id + "\n")
 
 doStuff()
