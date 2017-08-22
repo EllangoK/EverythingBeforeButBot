@@ -20,7 +20,7 @@ def doStuff():
         if comment.id not in posts_replied_to:
             if comment.author != "EverythingBeforeBut":
                 if re.search(" but " or ", but ", comment.body, re.IGNORECASE):
-                    fixed_comment = comment.body.split(" but" or ", but")[0]
+                    fixed_comment = comment.body.split(" but" or " bUT" or " buT" or " bUt" or " But" or " BUt" or " BUT" or " BuT")[0]
                     comment.reply('Everything before but doesn\'t count. \n\n You meant this: \n\n >' + fixed_comment)
                     posts_replied_to.append(comment.id)
                     with open("posts_replied_to.txt", "w") as f:
