@@ -6,7 +6,7 @@ import time
 import sys
 
 reddit = praw.Reddit('bot1')
-subreddit = reddit.subreddit("ArkunEnterprises")
+subreddit = reddit.subreddit("freefolk")
 if not os.path.isfile("posts_replied_to.txt"):
     posts_replied_to = []
 else:
@@ -25,12 +25,12 @@ def doStuff():
                     if x.endswith(', '):
                         x = x[:-1]
                         x = x[:-1]
-                    comment.reply('Everything before **but** doesn\'t count. \n\n You mean \n\n >' + x + "\n\n Instead of \n\n >" + comment.body)
+                    time.sleep(300)
+                    comment.reply('[Everything before the word **but** is horse shit.](https://www.youtube.com/watch?v=jIvYWUVB1Ig) \n\n You mean \n\n >' + x + "\n\n Instead of \n\n >" + comment.body)
                     posts_replied_to.append(comment.id)
                     print ("s")
                     with open("posts_replied_to.txt", "w") as f:
                         for post_id in posts_replied_to:
                             f.write(post_id + "\n")
-
 
 doStuff()
